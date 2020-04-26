@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package protobuf;
+
+option java_package = "com.guijjane.konux.events";
+option java_outer_classname = "EventProtocol";
+
+message Event {
+    int32 timestamp = 1;
+    int32 userId = 2;
+    string event = 3;
+}
