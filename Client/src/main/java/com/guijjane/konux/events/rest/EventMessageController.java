@@ -1,6 +1,6 @@
 package com.guijjane.konux.events.rest;
 
-import com.guijjane.konux.events.Event;
+import com.guijjane.konux.events.EventMessage;
 import com.guijjane.konux.sockets.SocketClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,18 +17,18 @@ import java.io.IOException;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
-public class EventController {
+public class EventMessageController {
     private final SocketClient socketClient;
 
     @PostMapping("/event")
-    public ResponseEntity<Void> sendEvent(@RequestBody Event event) {
+    public ResponseEntity<Void> sendEvent(@RequestBody EventMessage eventMessage) {
         HttpStatus status = HttpStatus.OK;
 
         try {
-            socketClient.send(event);
-            log.info("Sending an event for UserId : {}", event.getUserId());
+            socketClient.send(eventMessage);
+            log.info("Sending an event for UserId : {}", eventMessage.getUserId());
         } catch (IOException e) {
-            log.info("Error while sending the event", e);
+            log.info("I/O error : {}", e.getMessage());
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 

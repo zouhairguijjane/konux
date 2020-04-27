@@ -20,11 +20,8 @@ public class Transmission {
     private String host;
 
     public BufferedOutputStream open() throws IOException {
-        BufferedOutputStream bos;
-        try (Socket socket = new Socket(host, port)) {
-            bos = new BufferedOutputStream(socket.getOutputStream());
-            log.info("Open transmission to  {}", socket.getLocalAddress());
-        }
-        return bos;
+        Socket socket = new Socket(host, port);
+        log.info("Open transmission to {}", socket.getLocalAddress());
+        return new BufferedOutputStream(socket.getOutputStream());
     }
 }

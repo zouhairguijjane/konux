@@ -1,6 +1,6 @@
 package com.guijjane.konux.sockets;
 
-import com.guijjane.konux.events.Event;
+import com.guijjane.konux.events.EventMessage;
 import com.guijjane.konux.events.EventProtocol;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ public class SocketClient implements Client {
     private final Transmission transmission;
 
     @Override
-    public void send(Event event) throws IOException {
+    public void send(EventMessage event) throws IOException {
         EventProtocol.Event eventProtocol = buildEventProtocol(event);
 
         try (BufferedOutputStream bos = transmission.open()) {
@@ -26,11 +26,11 @@ public class SocketClient implements Client {
         }
     }
 
-    private EventProtocol.Event buildEventProtocol(Event event) {
+    private EventProtocol.Event buildEventProtocol(EventMessage event) {
         return EventProtocol.Event.newBuilder()
                 .setTimestamp(event.getTimestamp())
                 .setUserId(event.getUserId())
-                .setEvent(event.getEventMessage())
+                .setEvent(event.getEvent())
                 .build();
     }
 }

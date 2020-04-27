@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Event {
+public class EventMessage {
     private int timestamp;
     private int userId;
-    private String eventMessage;
+    private String event;
 }

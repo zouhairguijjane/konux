@@ -1,7 +1,7 @@
 package com.guijjane.konux.events.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.guijjane.konux.events.Event;
+import com.guijjane.konux.events.EventMessage;
 import com.guijjane.konux.events.EventProtocol;
 import com.guijjane.konux.sockets.Transmission;
 import org.assertj.core.api.Assertions;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class EventControllerTest {
+public class EventMessageControllerTest {
     private static final int TIMESTAMP = 1518609008;
     private static final int USER_ID = 1123;
     private static final String EVENT_MESSAGE = "2 hours of downtime occurred due to the release of version 1.0.5 of the system";
@@ -80,12 +80,12 @@ public class EventControllerTest {
     }
 
     private ResultActions postEvent() throws Exception {
-        Event event = new Event(TIMESTAMP, USER_ID, EVENT_MESSAGE);
+        EventMessage eventMessage = new EventMessage(TIMESTAMP, USER_ID, EVENT_MESSAGE);
 
         return mockMvc.perform(post("/api/event")
                 .characterEncoding("utf-8")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(event)));
+                .content(objectMapper.writeValueAsString(eventMessage)));
     }
 
     private EventProtocol.Event buildEventProtocol() {
