@@ -11,6 +11,12 @@ import (
 	"strconv"
 )
 
+const (
+	ConnHost = "172.17.171.241"
+	ConnPort = "3333"
+	ConnType = "tcp"
+)
+
 func main() {
 	log.Println("Starting the server...")
 	c := make(chan *pb.Event)
@@ -21,7 +27,7 @@ func main() {
 
 		}
 	}()
-	listener, err := net.Listen("tcp", "172.17.171.241:3333")
+	listener, err := net.Listen(ConnType, ConnHost+":"+ConnPort)
 	checkError(err)
 	for {
 		if conn, err := listener.Accept(); err == nil {
